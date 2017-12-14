@@ -39,12 +39,12 @@ $ ./mvnw package
 $ cd ~/docker-compose/nginx
 $ openssl genrsa -out server.key 2048
 ```
-* csr 생성 (인증서 서명 요청)
+* csr 생성 (인증서 서명 요청), 실제 공인인증서 발급받을 경우 아래 CN 값을 실제값으로 수정.
 ```
 $ cd ~/docker-compose/nginx
 $ openssl req -new -key server.key -out server.csr -subj "/C=KR/ST=Seoul/L=Gang-nam/O=SecureSign Inc/OU=Dev Team/CN=ec2-54-165-15-2.compute-1.amazonaws.com"
 ```
-* crt 생성 (서버 인증서) -> 공인인증서가 있을 경우는 제외
+* crt 생성 (서버 인증서) -> 공인인증서를 사용할 경우는 제외
 ```
 $ cd ~/docker-compose/nginx
 $ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
@@ -60,7 +60,7 @@ $ docker-compose logs -f
 $
 $ docker-compose stop
 ```
-* sacle 적용
+* scale 적용
 ```
 $ docker-compose up --build -d --scale spring1=3 --scale spring2=3
 ```
@@ -86,4 +86,8 @@ services:
       context: ./spring
       args:
         JAR_FILE: target/gs-spring-boot-docker-0.1.0.jar  # 실제 파일로 수정          
- 
+```
+
+## 접속
+* http://ec2-54-165-15-2.compute-1.amazonaws.com
+* https://ec2-54-165-15-2.compute-1.amazonaws.com
