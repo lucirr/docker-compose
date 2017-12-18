@@ -1,7 +1,7 @@
 # docker-compose sample
 * nginx(ssl) + spring-boot + spring-boot.
 * ubuntu 16.04 LTS 기준.
-* amazone 에서 테스트.
+* amazon 에서 테스트.
 
 ## install
 ```
@@ -54,7 +54,7 @@ $ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 $ cd ~/docker-compose
 $ docker-compose up --build -d
-$ docker-compse ps
+$ docker-compose ps
 $
 $ docker-compose logs -f
 $
