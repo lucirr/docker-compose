@@ -71,6 +71,9 @@ $ docker ps
 $ docker exec -it [CONTAINER ID] /bin/sh
 ```
 
+## logging 관련
+* https://docs.docker.com/compose/compose-file/#logging
+
 ## config
 * docker-compose.yml
 ```
@@ -80,18 +83,33 @@ services:
     build:
       context: ./nginx
     ports: 
-     - "80:80"
+     - "8081:80"
      - "443:443"    
   spring1:
     build:
       context: ./spring
       args:
         JAR_FILE: target/gs-spring-boot-docker-0.1.0.jar  # 실제 파일로 수정
+    volumes:
+    - ./file:/home/file
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "3"
   spring2:
     build:
       context: ./spring
       args:
-        JAR_FILE: target/gs-spring-boot-docker-0.1.0.jar  # 실제 파일로 수정          
+        JAR_FILE: target/gs-spring-boot-docker-0.1.0.jar  # 실제 파일로 수정      
+    volumes:
+    - ./file:/home/file
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "3"
+         
 ```
 
 ## 접속
