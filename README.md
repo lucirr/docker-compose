@@ -65,6 +65,12 @@ $ docker-compose stop
 $ docker-compose up --build -d --scale spring1=3 --scale spring2=3
 ```
 
+## docker container 접속
+```
+$ docker ps
+$ docker exec -it [CONTAINER ID] /bin/sh
+```
+
 ## config
 * docker-compose.yml
 ```
