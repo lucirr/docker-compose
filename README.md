@@ -73,6 +73,8 @@ $ docker exec -it [CONTAINER ID] /bin/sh
 
 ## logging 관련
 * https://docs.docker.com/compose/compose-file/#logging
+* location search : docker inspect --format='{{.LogPath}}' CONTAINER_ID
+* location : /var/lib/docker/containers
 
 ## config
 * docker-compose.yml
@@ -112,6 +114,4 @@ services:
          
 ```
 
-## 접속
-* http://ec2-54-165-15-2.compute-1.amazonaws.com
-* https://ec2-54-165-15-2.compute-1.amazonaws.com
+
