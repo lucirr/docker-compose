@@ -38,17 +38,23 @@ $ ./mvnw package
 ```
 $ cd ~/docker-compose/nginx
 $ openssl genrsa -out server.key 2048
+//$ openssl genrsa --aes256 -out privatekey.pem 2048  #  비밀키 보호 암호화 알고리즘 지정, DES, SEED, IDEA, AES128,192,256
 ```
-* csr 생성 (인증서 서명 요청), 실제 공인인증서 발급받을 경우 아래 CN 값을 실제값으로 수정.
+* csr 생성 (인증서 서명 요청), 실제 공인인증서 발급받을 경우 아래 CN 값을 실제값으로 수정.   csr 파일 생성할때 자동으로 공개키 생성되어 포함됨
 ```
 $ cd ~/docker-compose/nginx
 $ openssl req -new -key server.key -out server.csr -subj "/C=KR/ST=Seoul/L=Gang-nam/O=SecureSign Inc/OU=Dev Team/CN=ec2-54-165-15-2.compute-1.amazonaws.com"
+//$ openssl req -new -key privatekey.pem -out server.csr
 ```
 * crt 생성 (서버 인증서) -> 공인인증서를 사용할 경우는 제외
 ```
 $ cd ~/docker-compose/nginx
 $ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
+
+* 인증서와 개인키 정합성 검증
+$ openssl x509 -noout -text -in ./server.crt
+$ openssl rsa -noout -text -in ./privatekey.pem
 
 ## docker run
 ```
